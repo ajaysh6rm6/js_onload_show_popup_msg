@@ -1,0 +1,38 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.all.min.js"></script>
+<script>
+    function showMessage() {
+        const hasAgreed = localStorage.getItem('hasAgreed');
+        if (!hasAgreed) {
+            Swal.fire({
+                title: 'Terms and Conditions',
+                html: '<div id="swal-text" style="max-height: 500px; overflow-y: auto;">' +
+                    '<p>Users accessing the internet will do so at their own risk, and the Bank is not responsible for any material viewed or downloaded by users from the Internet.</p>' +
+                    '<p>All Users have a responsibility to use the Bank’s computer resources and the Internet in a professional, lawful and ethical manner. Abuse of the computer network or the Internet may result in disciplinary action under Service rules, civil and/or criminal liability.</p>' +
+                    '<p>User is prohibited from sending, transmitting, or otherwise distributing proprietary information, data, trade secrets, or other confidential information belonging to the Bank.</p>' +
+                    '<p>The Bank reserves the right to monitor and log any and all aspects of user devices, including but not limited to monitoring Internet sites visited by Users, monitoring chat and newsgroups, monitoring file downloads, and all communications sent and received by users.</p>' +
+                    '<p>User is presumed to have read and agreed to comply with the terms of this policy governing the use of Bank’s computer network including Wi-Fi network and understands that violation of this policy may result in appropriate action as per Bank’s Information System Security Policy and/or under respective agreements, service rules of the Bank as well as substantial civil and criminal penalties under the Information Technology act 2000 or any other Law, for the time being in force.</p>' +
+                    '<button id="confirmBtn" class="swal2-confirm swal2-styled" style="background-color: #3085d6;">I Agree</button>'+
+                    '</div>',
+                showCancelButton: false,
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                didOpen: () => {
+                    // Auto-scroll up the text on popup
+                    const swalText = document.getElementById('swal-text');
+                    swalText.scrollTop = 0;
+                }
+            }).then((result) => {
+                localStorage.setItem('hasAgreed', true); // Set the flag to indicate that the user has agreed
+            });
+
+            // Attach click event handler to the "I Agree" button
+            document.getElementById('confirmBtn').addEventListener('click', () => {
+                Swal.close(); // Close the popup
+                localStorage.setItem('hasAgreed', true); // Set the flag to indicate that the user has agreed
+            });
+        }
+    }
+
+    window.onload = showMessage;
+</script>
+
